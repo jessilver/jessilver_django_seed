@@ -3,4 +3,4 @@ from django.apps import AppConfig
 
 class DjangoSeedConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'django_seed'
+    name = 'jessilver_django_seed'
