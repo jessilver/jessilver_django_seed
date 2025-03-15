@@ -1,6 +1,6 @@
-# django_seed
+# jessilver_django_seed
 
-`django_seed` is a library for the Django framework that facilitates the creation of data (seeds) to populate the database during development and testing. With `django_seed`, you can quickly generate realistic data for your Django applications, which is useful for testing functionalities and visualizing how the application behaves with different types of data.
+`jessilver_django_seed` is a library for the Django framework that facilitates the creation of data (seeds) to populate the database during development and testing. With `jessilver_django_seed`, you can quickly generate realistic data for your Django applications, which is useful for testing functionalities and visualizing how the application behaves with different types of data.
 
 ## Features
 
@@ -14,17 +14,17 @@
 Install the library:
 
 ```bash
-pip install django_seed
+pip install jessilver_django_seed
 ```
 
 ### Adding to the Project
 
-Add `django_seed` to `INSTALLED_APPS` in your `settings.py` file:
+Add `jessilver_django_seed` to `INSTALLED_APPS` in your `settings.py` file:
 
 ```python
 INSTALLED_APPS = [
     ...
-    'django_seed',
+    'jessilver_django_seed',
 ]
 ```
 
@@ -88,7 +88,7 @@ To create a seeder, you need to implement two main functions: `seeder_name` and 
 Example of a complete seeder:
 
 ```python
-from django_seed.seeders.BaseSeeder import BaseSeeder
+from jessilver_django_seed.seeders.BaseSeeder import BaseSeeder
 from django.contrib.auth.models import User
 
 class SuperUserSeeder(BaseSeeder):
@@ -115,7 +115,7 @@ You can create multiple files or just one containing multiple classes. The only 
 For example, you can create a file `seeders.py` with multiple classes:
 
 ```python
-from django_seed.seeders.BaseSeeder import BaseSeeder
+from jessilver_django_seed.seeders.BaseSeeder import BaseSeeder
 from django.contrib.auth.models import User
 from myapp.models import Profile
 
