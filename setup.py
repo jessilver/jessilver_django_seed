@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='jessilver_django_seed',
-    version='0.1.3',
+    version='1.0.0',
     packages=find_packages(),
     include_package_data=True,
     license='MIT License',
