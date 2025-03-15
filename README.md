@@ -1,25 +1,25 @@
 # django_seed
 
-`django_seed` é uma biblioteca para o framework Django que facilita a criação de dados (seeds) para popular o banco de dados durante o desenvolvimento e testes. Com `django_seed`, você pode rapidamente gerar dados realistas para suas aplicações Django, o que é útil para testar funcionalidades e visualizar como a aplicação se comporta com diferentes tipos de dados.
+`django_seed` is a library for the Django framework that facilitates the creation of data (seeds) to populate the database during development and testing. With `django_seed`, you can quickly generate realistic data for your Django applications, which is useful for testing functionalities and visualizing how the application behaves with different types of data.
 
-## Funcionalidades
+## Features
 
-- **Geração de dados fictícios**: Crie dados de teste para seus modelos Django com facilidade.
-- **Configuração simples**: Integração fácil com projetos Django existentes.
+- **Fake data generation**: Easily create test data for your Django models.
+- **Simple configuration**: Easy integration with existing Django projects.
 
-## Configuração
+## Configuration
 
-### Instalação
+### Installation
 
-Instale a biblioteca:
+Install the library:
 
 ```bash
 pip install django_seed
 ```
 
-### Adição ao Projeto
+### Adding to the Project
 
-Adicione `django_seed` em `INSTALLED_APPS` no seu arquivo `settings.py`:
+Add `django_seed` to `INSTALLED_APPS` in your `settings.py` file:
 
 ```python
 INSTALLED_APPS = [
@@ -28,7 +28,7 @@ INSTALLED_APPS = [
 ]
 ```
 
-Crie uma constante chamada `SEEDER_APPS` para definir os aplicativos que você deseja popular com dados fictícios:
+Create a constant called `SEEDER_APPS` to define the apps you want to populate with fake data:
 
 ```python
 SEEDER_APPS = [
@@ -38,11 +38,11 @@ SEEDER_APPS = [
 ]
 ```
 
-## Uso
+## Usage
 
-### Estrutura de Diretórios
+### Directory Structure
 
-Dentro da pasta dos apps adicionados em `SEEDER_APPS`, crie um diretório chamado `seeders`:
+Inside the folder of the apps added in `SEEDER_APPS`, create a directory called `seeders`:
 
 ```plaintext
 app1/
@@ -51,17 +51,17 @@ app1/
 └── ...
 ```
 
-### Criação de Seeders
+### Creating Seeders
 
-Dentro do diretório `seeders`, você pode criar arquivos para definir os dados que deseja gerar. Por exemplo, um arquivo chamado `user_seeder.py`:
+Inside the `seeders` directory, you can create files to define the data you want to generate. For example, a file called `user_seeder.py`:
 
-Para criar um seeder, você precisa implementar duas funções principais: `seeder_name` e `seed`. Vou explicar cada uma delas:
+To create a seeder, you need to implement two main functions: `seeder_name` and `seed`. I will explain each of them:
 
 1. `seeder_name`
 
-    Esta função é responsável por retornar o nome do seeder. Este nome é geralmente utilizado para identificar o seeder de forma única dentro do sistema. Pode ser útil para fins de organização e para garantir que o seeder correto está sendo executado.
+    This function is responsible for returning the name of the seeder. This name is generally used to uniquely identify the seeder within the system. It can be useful for organizational purposes and to ensure that the correct seeder is being executed.
 
-    Exemplo:
+    Example:
 
     ```python
     def seeder_name():
@@ -70,9 +70,9 @@ Para criar um seeder, você precisa implementar duas funções principais: `seed
 
 2. `seed`
 
-    Esta função é onde a lógica de inserção de dados é implementada. Ela é responsável por popular o banco de dados com os dados desejados. A função `seed` geralmente contém comandos para criar registros no banco de dados, utilizando modelos ou queries diretas.
+    This function is where the data insertion logic is implemented. It is responsible for populating the database with the desired data. The `seed` function usually contains commands to create records in the database, using models or direct queries.
 
-    Exemplo:
+    Example:
 
     ```python
     def seed():
@@ -81,11 +81,11 @@ Para criar um seeder, você precisa implementar duas funções principais: `seed
             {"name": "Bob", "email": "bob@example.com"},
         ]
         for user in users:
-            # Supondo que você tenha um modelo User
+            # Assuming you have a User model
             User.create(**user)
     ```
 
-Exemplo de um seeder completo:
+Example of a complete seeder:
 
 ```python
 from django_seed.seeders.BaseSeeder import BaseSeeder
@@ -110,9 +110,9 @@ class SuperUserSeeder(BaseSeeder):
             self.error(f'Super User already exists')
 ```
 
-Você pode criar vários arquivos ou apenas um contendo várias classes. A única obrigação é que o nome das classes termine com `Seeder`, caso contrário, não funcionará.
+You can create multiple files or just one containing multiple classes. The only requirement is that the class names end with `Seeder`, otherwise, it will not work.
 
-Por exemplo, você pode criar um arquivo `seeders.py` com várias classes:
+For example, you can create a file `seeders.py` with multiple classes:
 
 ```python
 from django_seed.seeders.BaseSeeder import BaseSeeder
@@ -151,9 +151,9 @@ class ProfileSeeder(BaseSeeder):
             self.success(f'Profile created for user {user.username}')
 ```
 
-### Executando os Seeders
+### Running the Seeders
 
-Agora, você pode rodar o comando para popular o banco de dados com os dados fictícios:
+Now, you can run the command to populate the database with fake data:
 
 ```bash
 python manage.py seed
