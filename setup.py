@@ -1,8 +1,8 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='django_seed',
-    version='0.1.0',
+    name='jessilver_django_seed',
+    version='0.1.1',
     packages=find_packages(),
     include_package_data=True,
     license='MIT License',

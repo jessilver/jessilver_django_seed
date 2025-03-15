@@ -1,0 +1,13 @@
+LICENSE
+MANIFEST.in
+README.md
+setup.py
+jessilver_django_seed/__init__.py
+jessilver_django_seed/apps.py
+jessilver_django_seed.egg-info/PKG-INFO
+jessilver_django_seed.egg-info/SOURCES.txt
+jessilver_django_seed.egg-info/dependency_links.txt
+jessilver_django_seed.egg-info/requires.txt
+jessilver_django_seed.egg-info/top_level.txt
+jessilver_django_seed/seeders/BaseSeeder.py
+jessilver_django_seed/seeders/__init__.py
