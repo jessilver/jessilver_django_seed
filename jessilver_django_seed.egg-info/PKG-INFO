@@ -1,6 +1,6 @@
 Metadata-Version: 2.2
 Name: jessilver_django_seed
-Version: 1.0.1
+Version: 1.0.2
 Summary: A library to facilitate the creation of fake data (seeds) in Django projects.
 Home-page: https://github.com/jessilver/django_seed
 Author: Jesse Silva
