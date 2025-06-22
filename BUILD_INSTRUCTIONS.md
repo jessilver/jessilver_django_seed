@@ -1,13 +1,15 @@
 # Build Instructions
 
-Este arquivo contém instruções para build e instalação do pacote `jessilver_django_seed` em ambientes de desenvolvimento e produção.
+Este arquivo contém instruções **apenas para build e publicação** do pacote `jessilver_django_seed`.
 
 ## Pré-requisitos
 - Python 3.7+
 - pip
 - (Opcional) Ambiente virtual Python
+- Conta no PyPI (https://pypi.org/)
+- Token de API do PyPI (veja instruções abaixo)
 
-## Passos para build local
+## Passos para build e publicação
 
 1. Clone o repositório:
    ```bash
@@ -19,9 +21,10 @@ Este arquivo contém instruções para build e instalação do pacote `jessilver
    python3 -m venv venv
    source venv/bin/activate
    ```
-3. Instale as dependências:
+3. Instale as dependências de build:
    ```bash
    pip install -r requirements.txt
+   pip install build twine
    ```
 4. (Recomendado) Limpe a pasta dist antes de gerar um novo build:
    ```bash
@@ -32,40 +35,27 @@ Este arquivo contém instruções para build e instalação do pacote `jessilver
    python -m build
    ```
    Os arquivos gerados estarão na pasta `dist/`.
-6. (Opcional) Instale o pacote localmente para testes:
+6. (Opcional) Teste o pacote localmente:
    ```bash
    pip install dist/jessilver_django_seed-<versao>.whl
    # ou
    pip install dist/jessilver_django_seed-<versao>.tar.gz
    ```
-7. (Opcional) Publique no PyPI:
+7. Configure seu token do PyPI:
+   - Gere um token em https://pypi.org/manage/account/#api-tokens
+   - Crie/edite o arquivo `~/.pypirc` com:
+     ```ini
+     [distutils]
+     index-servers =
+         pypi
+
+     [pypi]
+     username = __token__
+     password = pypi-SEU_TOKEN_AQUI
+     ```
+8. Publique no PyPI:
    ```bash
    twine upload dist/*
    ```
 
-## Testes
-
-Para rodar todos os testes, execute:
-```bash
-export DJANGO_SETTINGS_MODULE=tests.django_test_settings
-export PYTHONPATH=.
-pytest --maxfail=1 --disable-warnings -q
-```
-
-Ou para rodar um teste específico:
-```bash
-pytest tests/test_base_seeder.py
-pytest tests/test_seed_command.py
-pytest tests/test_seed_command_only.py
-```
-
-## Execução seletiva de seeders
-
-Você pode rodar apenas seeders específicos usando o argumento `--only`:
-```bash
-python manage.py seed --only UserSeeder,ProductSeeder
-```
-
-## Observações
-- Este arquivo **não** será incluído no build/distribuição do pacote, pois não está listado no `MANIFEST.in`.
-- Mantenha este arquivo atualizado para facilitar a colaboração.
+Pronto! Seu pacote estará disponível no PyPI.
