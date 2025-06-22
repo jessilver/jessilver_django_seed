@@ -11,3 +11,5 @@ jessilver_django_seed.egg-info/requires.txt
 jessilver_django_seed.egg-info/top_level.txt
 jessilver_django_seed/seeders/BaseSeeder.py
 jessilver_django_seed/seeders/__init__.py
+tests/test_base_seeder.py
+tests/test_seed_command.py

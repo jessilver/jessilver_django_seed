@@ -3,11 +3,11 @@ from setuptools import setup, find_packages
 setup(
     name='jessilver_django_seed',
     version='1.0.2',
-    packages=find_packages(),
+    packages=find_packages(exclude=['tests*']),
     include_package_data=True,
     license='MIT License',
     description='A library to facilitate the creation of fake data (seeds) in Django projects.',
-    long_description=open('README.md').read(),
+    long_description=open('README.md', encoding='utf-8').read(),
     long_description_content_type='text/markdown',
     url='https://github.com/jessilver/django_seed',
     author='Jesse Silva',
@@ -20,6 +20,13 @@ setup(
         'Framework :: Django',
     ],
     install_requires=[
-        'Django>=5.1',
+        'Django>=3.2',
     ],
+    python_requires='>=3.7',
+    keywords='django, seed, fake data, testing, development',
+    project_urls={
+        'Documentation': 'https://github.com/jessilver/django_seed#readme',
+        'Source': 'https://github.com/jessilver/django_seed',
+        'Tracker': 'https://github.com/jessilver/django_seed/issues',
+    },
 )
