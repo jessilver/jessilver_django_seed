@@ -4,24 +4,41 @@ import importlib.util
 import inspect
 import os
 
+def get_seeder_classes_from_module(module):
+    """
+    Retorna todas as classes Seeder (exceto BaseSeeder) de um módulo.
+    """
+    return [
+        obj for name, obj in inspect.getmembers(module, inspect.isclass)
+        if name.endswith('Seeder') and name != 'BaseSeeder'
+    ]
+
+def load_seeders_from_dir(seed_dir):
+    """
+    Carrega dinamicamente todos os módulos Python do diretório de seeders,
+    retornando uma lista de classes Seeder encontradas.
+    """
+    seeder_classes = []
+    for filename in sorted(os.listdir(seed_dir)):
+        if filename.endswith('.py') and filename not in ('__init__.py', 'BaseSeeder.py'):
+            module_name = filename[:-3]
+            module_path = os.path.join(seed_dir, filename)
+            spec = importlib.util.spec_from_file_location(module_name, module_path)
+            module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(module)
+            seeder_classes.extend(get_seeder_classes_from_module(module))
+    return seeder_classes
+
+# Lista global para armazenar as classes de seeders encontradas
 seeders = []
 
+# Para cada app listado em SEEDER_APPS nas configurações do projeto
 for app in settings.SEEDER_APPS:
+    # Monta o caminho absoluto para a pasta 'seeders' do app
     app_seeders_dir = os.path.join(settings.BASE_DIR, app, 'seeders')
     if os.path.isdir(app_seeders_dir):
-        # Ordena os arquivos pelo nome
-        for filename in sorted(os.listdir(app_seeders_dir)):
-            if filename.endswith('.py') and filename != '__init__.py' and filename != 'BaseSeeder.py':
-                module_name = filename[:-3]
-                module_path = os.path.join(app_seeders_dir, filename)
-
-                spec = importlib.util.spec_from_file_location(module_name, module_path)
-                module = importlib.util.module_from_spec(spec)
-                spec.loader.exec_module(module)
-                
-                for name, obj in inspect.getmembers(module, inspect.isclass):
-                    if name.endswith('Seeder') and name != 'BaseSeeder':
-                        seeders.append(obj)
+        # Lista e ordena alfabeticamente todos os arquivos Python na pasta de seeders
+        seeders.extend(load_seeders_from_dir(app_seeders_dir))
 
 class Command(BaseCommand):
     help = 'Populate the database with all or selected seeders'

@@ -21,11 +21,20 @@ class BaseSeeder(ABC):
         except Exception as e:
             print(f'\033[91mError executing {self.seeder_name}: {e}\033[0m')
     
-    def succes(self, mensage):
-        print(f'\033[92m- {mensage}\033[0m')
+    def success(self, message):
+        print(f'\033[92m- {message}\033[0m')
 
-    def error(self, mensage):
-        print(f'\033[91m- {mensage}\033[0m')
+    def error(self, message):
+        print(f'\033[91m- {message}\033[0m')
+
+    def info(self, message):
+        print(f'\033[94m- {message}\033[0m')
+
+    def warning(self, message):
+        print(f'\033[93m- {message}\033[0m')
+
+    def debug(self, message):
+        print(f'\033[95m- {message}\033[0m')
 
     def __name__(self):
         return self.seeder_name
