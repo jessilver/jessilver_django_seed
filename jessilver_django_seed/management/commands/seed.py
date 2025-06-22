@@ -9,7 +9,8 @@ seeders = []
 for app in settings.SEEDER_APPS:
     app_seeders_dir = os.path.join(settings.BASE_DIR, app, 'seeders')
     if os.path.isdir(app_seeders_dir):
-        for filename in os.listdir(app_seeders_dir):
+        # Ordena os arquivos pelo nome
+        for filename in sorted(os.listdir(app_seeders_dir)):
             if filename.endswith('.py') and filename != '__init__.py' and filename != 'BaseSeeder.py':
                 module_name = filename[:-3]
                 module_path = os.path.join(app_seeders_dir, filename)
