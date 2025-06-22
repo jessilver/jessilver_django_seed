@@ -1,6 +1,6 @@
 # Build Instructions
 
-Este arquivo contém instruções para build e instalação do pacote `jessilver_django_seed` em ambientes de desenvolvimento.
+Este arquivo contém instruções para build e instalação do pacote `jessilver_django_seed` em ambientes de desenvolvimento e produção.
 
 ## Pré-requisitos
 - Python 3.7+
@@ -23,9 +23,24 @@ Este arquivo contém instruções para build e instalação do pacote `jessilver
    ```bash
    pip install -r requirements.txt
    ```
-4. Instale o pacote localmente (modo editável):
+4. (Recomendado) Limpe a pasta dist antes de gerar um novo build:
    ```bash
-   pip install -e .
+   rm -rf dist/*
+   ```
+5. Gere o build do pacote (sdist e wheel):
+   ```bash
+   python -m build
+   ```
+   Os arquivos gerados estarão na pasta `dist/`.
+6. (Opcional) Instale o pacote localmente para testes:
+   ```bash
+   pip install dist/jessilver_django_seed-<versao>.whl
+   # ou
+   pip install dist/jessilver_django_seed-<versao>.tar.gz
+   ```
+7. (Opcional) Publique no PyPI:
+   ```bash
+   twine upload dist/*
    ```
 
 ## Testes
@@ -33,14 +48,15 @@ Este arquivo contém instruções para build e instalação do pacote `jessilver
 Para rodar todos os testes, execute:
 ```bash
 export DJANGO_SETTINGS_MODULE=tests.django_test_settings
-python -m unittest discover tests
+export PYTHONPATH=.
+pytest --maxfail=1 --disable-warnings -q
 ```
 
 Ou para rodar um teste específico:
 ```bash
-python -m unittest tests/test_base_seeder.py
-python -m unittest tests/test_seed_command.py
-python -m unittest tests/test_seed_command_only.py
+pytest tests/test_base_seeder.py
+pytest tests/test_seed_command.py
+pytest tests/test_seed_command_only.py
 ```
 
 ## Execução seletiva de seeders
