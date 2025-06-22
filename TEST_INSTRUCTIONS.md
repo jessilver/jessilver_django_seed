@@ -23,7 +23,11 @@ python -m unittest discover tests
 ```bash
 python -m unittest tests/test_base_seeder.py
 python -m unittest tests/test_seed_command.py
+python -m unittest tests/test_seed_command_only.py
 ```
+
+## Testando execução seletiva de seeders
+O teste `test_seed_command_only.py` cobre o uso do argumento `--only` para rodar seeders específicos.
 
 ## Observações
 - Este arquivo **não** será incluído no build/distribuição do pacote, pois não está listado no `MANIFEST.in`.

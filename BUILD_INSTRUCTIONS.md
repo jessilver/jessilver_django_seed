@@ -40,6 +40,14 @@ Ou para rodar um teste específico:
 ```bash
 python -m unittest tests/test_base_seeder.py
 python -m unittest tests/test_seed_command.py
+python -m unittest tests/test_seed_command_only.py
+```
+
+## Execução seletiva de seeders
+
+Você pode rodar apenas seeders específicos usando o argumento `--only`:
+```bash
+python manage.py seed --only UserSeeder,ProductSeeder
 ```
 
 ## Observações
