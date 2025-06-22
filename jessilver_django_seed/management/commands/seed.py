@@ -24,9 +24,25 @@ for app in settings.SEEDER_APPS:
                         seeders.append(obj)
 
 class Command(BaseCommand):
-    help = 'Populate the database with all seeders'
+    help = 'Populate the database with all or selected seeders'
+
+    def add_arguments(self, parser):
+        parser.add_argument(
+            '--only',
+            type=str,
+            help='Comma-separated list of seeder class names to run (ex: UserSeeder,ProductSeeder)'
+        )
 
     def handle(self, *args, **options):
+        only = options.get('only')
+        selected_seeders = seeders
+        if only:
+            only_list = [name.strip() for name in only.split(',') if name.strip()]
+            selected_seeders = [s for s in seeders if s.__name__ in only_list]
+            if not selected_seeders:
+                self.stdout.write(self.style.ERROR(f'No matching seeders found for: {only}'))
+                return
+
         confirm = input("Are you sure you want to proceed with seeding? [y/N]: ")
         if confirm.lower() != 'y':
             self.stdout.write(self.style.ERROR('Seeding canceled.'))
@@ -36,7 +52,7 @@ class Command(BaseCommand):
         self.stdout.write(self.style.HTTP_SERVER_ERROR('Starting seeding... '))
         self.stdout.write('')
 
-        for seeder_class in seeders:
+        for seeder_class in selected_seeders:
             seeder_class().handle()
             self.stdout.write('')
         
