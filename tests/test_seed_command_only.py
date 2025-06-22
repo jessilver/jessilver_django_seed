@@ -24,6 +24,3 @@ class TestSeedCommandOnly(unittest.TestCase):
             out = StringIO()
             call_command('seed', only='NonExistentSeeder', stdout=out)
             self.assertIn('No matching seeders found for: NonExistentSeeder', out.getvalue())
-
-if __name__ == "__main__":
-    unittest.main()

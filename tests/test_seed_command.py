@@ -32,6 +32,3 @@ class TestSeedCommand(unittest.TestCase):
                 call_command('seed')
             except Exception as e:
                 self.fail(f"call_command('seed') raised {e}")
-
-if __name__ == "__main__":
-    unittest.main()

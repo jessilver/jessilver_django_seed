@@ -22,6 +22,3 @@ class TestBaseSeeder(unittest.TestCase):
     # def test_succes_and_error(self):
     #     self.seeder.succes("Success message")
     #     self.seeder.error("Error message")
-
-if __name__ == "__main__":
-    unittest.main()

@@ -57,24 +57,41 @@ Run only specific seeders:
 python manage.py seed --only UserSeeder,ProductSeeder
 ```
 
+## Seeder Creation via CLI
+
+You can create a new seeder file automatically using the management command:
+
+```bash
+python manage.py seed --create UserSeeder --app myapp
+```
+- This will create a file `myapp/seeders/UserSeeder.py` with a template class if it does not already exist.
+- If the app is not listed in `SEEDER_APPS` in your `settings.py`, it will be added automatically.
+- The command validates the seeder class name and ensures no duplicates.
+
 ## How it works
 - The library looks for all apps listed in `SEEDER_APPS`.
 - For each app, it dynamically loads all Python files in the `seeders/` folder.
 - It searches for classes ending with `Seeder` (exemple `UserSeeder`).
 
-
-### BaseSeeder
-- `seeder_name`: Seeder name (required property).
-- `seed()`: Required method where the data creation logic should be implemented.
-- `success(message)`: Prints a success message.
-- `info(message)`: Prints an info message.
-- `warning(message)`: Prints an warning message.
-- `debug(message)`: Prints an debug message.
-
 ### Seed Command
 - Argument `--only`: Runs only the seeders whose class names are provided.
 - Interactive confirmation before execution.
 - Status messages and summary at the end.
+
+## Seeder Execution Order
+
+Seeders are loaded and executed in alphabetical order based on their filename. You can control the execution order by naming your seeder files with numeric or alphabetical prefixes, e.g.:
+
+```
+01_UserSeeder.py
+02_ProductSeeder.py
+```
+
+This ensures that seeders run in the desired sequence.
+
+## Compatibility
+
+All file and directory operations use Python's `os.path.join` and standard library functions, ensuring compatibility across Linux, Windows, and MacOS. No hardcoded path separators are used.
 
 ## Examples
 
